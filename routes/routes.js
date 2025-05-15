@@ -1,6 +1,7 @@
 import { addToCart, getCart } from '../controllers/cartController.js';
 import { getProducts } from '../controllers/productController.js';
 import { validateCartPayload } from '../middlewares/validateCartPayload.js';
+import { handlePrismaOperations } from '../controllers/prismaController.js';
 
 const initRoutes = (app) => {
   app.get('/', (req, res) => {
@@ -26,6 +27,8 @@ const initRoutes = (app) => {
 
   app.get('/cart', getCart);
   app.post('/cart', validateCartPayload, addToCart);
+
+  app.get('/prisma', handlePrismaOperations);
 
   app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
